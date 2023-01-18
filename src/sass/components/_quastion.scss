@@ -1,0 +1,34 @@
+.question {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+
+// .bird__audio-player {
+//   display: flex;
+//   >* {width: 100%;}
+// }
+
+.answers {
+  display: flex;
+  width: 45%;
+  flex-direction: column;
+}
+.answer {
+display: flex;
+width: 45%;
+flex-direction: column;
+}
+
+.controls {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.bird__quastion {
+    width: 100%;
+    >* {width: 100%;}
+}

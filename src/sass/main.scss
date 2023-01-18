@@ -1,0 +1,17 @@
+@import 'layouts/wrapper';
+@import 'layouts/header';
+@import 'layouts/footer';
+
+@import 'components/quastion';
+@import 'components/answer';
+
+@import 'base/buttons';
+
+h1 {
+  color: rgb(188, 34, 34);
+}
+
+// .wrapper {
+//   display: flex;
+//   margin: auto;
+// }

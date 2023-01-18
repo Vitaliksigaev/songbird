@@ -1,0 +1,42 @@
+.header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+//   border: 1px solid;
+}
+
+.score__box {
+  display: flex;
+  padding: 25px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.bird__image {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+}
+
+.topics {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.active {
+  color: rgb(255, 0, 0);
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+//   border: 1px solid;
+  list-style-type: none;
+}

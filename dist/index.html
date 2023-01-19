@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebApp</title>
+
+    <!-- <link rel="icon" href="favicon.ico"" sizes="any"
+    /> -->
+    <!-- <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjxzdmcKICAgZmlsbD0ibm9uZSIKICAgaGVpZ2h0PSIxOCIKICAgdmlld0JveD0iMCAwIDE4LjAxMjM4NCAxOCIKICAgd2lkdGg9IjE4LjAxMjM4NCIKICAgdmVyc2lvbj0iMS4xIgogICBpZD0ic3ZnMTIiCiAgIHNvZGlwb2RpOmRvY25hbWU9Ijg2NzU0MDRfZmx1ZW50X3B1enpsZV9jdWJlX3JlZ3VsYXJfaWNvbi5zdmciCiAgIHhtbG5zOmlua3NjYXBlPSJodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy9uYW1lc3BhY2VzL2lua3NjYXBlIgogICB4bWxuczpzb2RpcG9kaT0iaHR0cDovL3NvZGlwb2RpLnNvdXJjZWZvcmdlLm5ldC9EVEQvc29kaXBvZGktMC5kdGQiCiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CiAgPGRlZnMKICAgICBpZD0iZGVmczE2IiAvPgogIDxzb2RpcG9kaTpuYW1lZHZpZXcKICAgICBpZD0ibmFtZWR2aWV3MTQiCiAgICAgcGFnZWNvbG9yPSIjZmZmZmZmIgogICAgIGJvcmRlcmNvbG9yPSIjMDAwMDAwIgogICAgIGJvcmRlcm9wYWNpdHk9IjAuMjUiCiAgICAgaW5rc2NhcGU6c2hvd3BhZ2VzaGFkb3c9IjIiCiAgICAgaW5rc2NhcGU6cGFnZW9wYWNpdHk9IjAuMCIKICAgICBpbmtzY2FwZTpwYWdlY2hlY2tlcmJvYXJkPSIwIgogICAgIGlua3NjYXBlOmRlc2tjb2xvcj0iI2QxZDFkMSIKICAgICBzaG93Z3JpZD0iZmFsc2UiIC8+CiAgPHBhdGgKICAgICBkPSJNIDE4LDEyLjUgViAzLjI1IEMgMTgsMS40NTUxIDE2LjU0NDkzLDAgMTQuNzUsMCBIIDMuMjUgQyAxLjQ1NTEsMCAwLDEuNDU1MSAwLDMuMjUgdiAxMS41IEMgMCwxNi41NDQ5MyAxLjQ1NTEsMTggMy4yNSwxOCBIIDEyLjUgViAxMi41IFogTSAxMi41LDExIFYgNyBoIDQgdiA0IHogTSAxMSw3IHYgNCBIIDcgViA3IFogTSA1LjUsNyB2IDQgaCAtNCBWIDcgWiBNIDExLDUuNSBIIDcgdiAtNCBoIDQgeiBtIC01LjUsMCBoIC00IFYgMy4yNSBDIDEuNSwyLjI4MzUgMi4yODM1LDEuNSAzLjI1LDEuNSBIIDUuNSBaIG0gMCwxMSBIIDMuMjUgQyAyLjI4MzUsMTYuNSAxLjUsMTUuNzE2NSAxLjUsMTQuNzUgViAxMi41IGggNCB6IG0gMS41LC00IGggNCB2IDQgSCA3IFogbSA1LjUsLTcgdiAtNCBoIDIuMjUgYyAwLjk2NjUsMCAxLjc1LDAuNzgzNSAxLjc1LDEuNzUgViA1LjUgWiIKICAgICBmaWxsPSIjMjEyMTIxIgogICAgIGlkPSJwYXRoMTAiIC8+CiAgPHBhdGgKICAgICBzdHlsZT0iZmlsbDojMDAwMDgwO3N0cm9rZS13aWR0aDowLjEwMTY5NSIKICAgICBkPSJNIDIuMzg5ODMwNSwxNy44MDY5IEMgMS43MTA4NjMxLDE3LjU5MjE3IDEuMzY5ODY1LDE3LjM3MTIxOSAwLjg4NDc5ODksMTYuODMxNzA5IDAuMDI1NTUxLDE1Ljg3NjAxOCAwLjA1MDg0NzUsMTYuMTEzNTggMC4wNTA4NDc1LDkgYyAwLC01LjgwMzUxMzEgMC4wMTM0NDMsLTYuMjkyNzk4NCAwLjE4NjUyODgsLTYuNzg5MzA5MyAwLjI0ODEyMDQsLTAuNzExNzUyIDEuMDIxMzQ0NSwtMS41NTE4MzcgMS43MTgyMDU2LC0xLjg2Njc3OTMgTCAyLjQ5MTUyNTQsMC4xMDE2OTQ5IEggOSAxNS41MDg0NzUgbCAwLjUzNTk0MywwLjI0MjIxNjUgYyAwLjY2MDc2MywwLjI5ODYyNzggMS40NTc0NjMsMS4xNDI3NDAyIDEuNzExNjM1LDEuODEzNDk1MyAwLjE2Njc4OSwwLjQ0MDE1MDkgMC4xODc4NSwwLjk1NTYwMjIgMC4yMjAzNzEsNS4zOTM0NDAzIGwgMC4wMzU5Niw0LjkwNjc4IEggMTUuMjA5NTgxIDEyLjQwNjc4IHYgMi43NDU3NjMgMi43NDU3NjMgbCAtNC44MDUwODUsLTAuMDA2OCBDIDQuMDI1NTk3MiwxNy45MzcyODcgMi42OTI1Njg5LDE3LjkwMjY0MiAyLjM4OTgzMDUsMTcuODA2OSBaIE0gNS41OTMyMjAzLDE0LjQ5MTUyNSBWIDEyLjQ1NzYyNyBIIDMuNTA4NDc0NiAxLjQyMzcyODggdiAxLjI3NDQ1MyBjIDAsMS4zNTcwMTIgMC4xMDUxNDM2LDEuODAwMjI4IDAuNTM4NzUyLDIuMjcxMDIzIDAuNDAwOTAzNCwwLjQzNTI4NiAwLjc0MDMxMzEsMC41MTQwOTMgMi4yMzI0MzQ1LDAuNTE4MzQgbCAxLjM5ODMwNSwwLjAwNCB6IG0gNS40OTE1MjU3LDAgViAxMi40NTc2MjcgSCA5IDYuOTE1MjU0MiB2IDIuMDMzODk4IDIuMDMzODk5IEggOSAxMS4wODQ3NDYgWiBNIDUuNTkzMjIwMyw5IFYgNi45NjYxMDE3IEggMy41MDg0NzQ2IDEuNDIzNzI4OCBWIDkgMTEuMDMzODk4IEggMy41MDg0NzQ2IDUuNTkzMjIwMyBaIE0gMTEuMDg0NzQ2LDkgViA2Ljk2NjEwMTcgSCA5IDYuOTE1MjU0MiBWIDkgMTEuMDMzODk4IEggOSAxMS4wODQ3NDYgWiBtIDUuNDkxNTI1LDAgViA2Ljk2NjEwMTcgSCAxNC40OTE1MjUgMTIuNDA2NzggViA5IDExLjAzMzg5OCBoIDIuMDg0NzQ1IDIuMDg0NzQ2IHogTSA1LjU5MzIyMDMsMy41MDg0NzQ2IFYgMS40NzQ1NzYzIGggLTEuMzY2MjYxIGMgLTEuNDI3OTI3NywwIC0xLjc3OTMxMzUsMC4wNzA3MjMgLTIuMTgxMDUyOCwwLjQzODk3NzUgQyAxLjU1NTA5ODksMi4zNjM0NTMgMS40MjgzODM0LDIuODQwMTUyMyAxLjQyNTk2MjIsNC4yNDU3NjI3IGwgLTAuMDAyMjMsMS4yOTY2MTAyIEggMy41MDg0NzggNS41OTMyMjM3IFogbSA1LjQ5MTUyNTcsMCBWIDEuNDc0NTc2MyBIIDkgNi45MTUyNTQyIFYgMy41MDg0NzQ2IDUuNTQyMzcyOSBIIDkgMTEuMDg0NzQ2IFogbSA1LjQ4OTI5MiwwLjczNzI4ODEgQyAxNi41NzE2MTcsMi44NDAxNTIzIDE2LjQ0NDkwMSwyLjM2MzQ1MyAxNS45NTQwOTQsMS45MTM1NTM4IDE1LjU1MjM1NCwxLjU0NTI5OTIgMTUuMjAwOTY4LDEuNDc0NTc2MyAxMy43NzMwNDEsMS40NzQ1NzYzIEggMTIuNDA2NzggdiAyLjAzMzg5ODMgMi4wMzM4OTgzIGggMi4wODQ3NDUgMi4wODQ3NDYgbCAtMC4wMDIyLC0xLjI5NjYxMDIgeiIKICAgICBpZD0icGF0aDM3NCIgLz4KPC9zdmc+Cg=="
+    />
+    <link
+      rel="apple-touch-icon"
+      href="data:image/png;base64,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"
+    /> -->
+    <link rel="stylesheet" href="./src/sass/main.scss">
+  <script defer src="index.js"></script><link rel="manifest" href="./manifest.57b6c2d5d7a8be5cdf99f48d564dca4b.json" /></head>
+  <body>
+    <!-- <div class="wrapper">
+      <header class="header">
+        <div class="header__top">
+          <img  class="logo" src="../src/assets/logo-bird.jpg" alt="logo">
+          <div class="score__box">
+            <p>Score:</p>
+            <p class="score">10</p>
+          </div>
+        </div>
+        <div class="header__botton">
+          <ul class="topics">
+            <li class="active">Врановые птицы</li>
+            <li class="">Экзотические птицы</li>
+            <li class="">Попугаи</li>
+            <li class="">Хищные птицы</li>
+            <li class="">Фермерские птицы1</li>
+            <li class="">Певчие птицы</li>
+          </ul>
+        </div>
+      </header>
+      <main class="wrapper__main">
+        <div class="question">
+          <img src="../src/assets/logo-bird.jpg" alt="logo" class="bird__image">
+          <div class="bird__quastion">
+            <p class="bird__title">++++</p>
+            <div class="bird__audio-player">
+
+              <audio src="https://www.xeno-canto.org/sounds/uploaded/XIQVMQVUPP/XC518684-Grands%20corbeaux%2009012020%20Suzon.mp3" controls></audio>
+
+            </div>
+          </div>
+        </div>
+        <div class="answers">
+          <button type="button" class="answer__option">1</button>
+          <button type="button" class="answer__option">2</button>
+          <button type="button" class="answer__option">3</button>
+          <button type="button" class="answer__option">4</button>
+          <button type="button" class="answer__option">5</button>
+          <button type="button" class="answer__option">6</button>
+        </div>
+        <div class="answer">
+          <p>Угадай!</p>
+          <p>Выбери правильный ответ и получи баллы</p>
+        </div>
+        <div class="controls">
+          <button class="button">NEXT  LEVEL</button>
+        </div>
+      </main>
+      <footer class="footer">(c) Vitalik Sigaev, 2023</footer> -->
+    </div>
+  </body>
+</html>

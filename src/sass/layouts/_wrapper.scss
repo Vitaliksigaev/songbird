@@ -1,0 +1,13 @@
+.wrapper {
+  max-width: 1200px;
+  margin: auto;
+  background-color: rgba(128, 176, 217, 0.628);
+  border-radius: 50px;
+  padding: 20px;
+}
+
+.wrapper__main {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

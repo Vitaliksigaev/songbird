@@ -1,0 +1,18 @@
+{
+  "icons": [
+    {
+      "src": "./assets/icon_512x512.0235da3a3b865b9acb241b2adadc8f6a.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "./assets/icon_192x192.1e2c7a3db04743c00207445fecf0824b.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "name": "WebApp",
+  "short_name": "WebApp",
+  "display": "standalone",
+  "start_url": "."
+}

@@ -1,7 +1,12 @@
+.header {
+    margin-bottom: 50px;
+}
+
 .header__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 50px;
 //   border: 1px solid;
 }
 
@@ -11,15 +16,18 @@
 }
 
 .logo {
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
   margin-right: 10px;
+  border-radius: 50%;
+  border: solid 5px white;
 }
 
 .bird__image {
-    width: 100px;
-    height: 100px;
-    margin-right: 10px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: solid 5px white;
 }
 
 .topics {
@@ -28,7 +36,7 @@
   justify-content: space-around;
 }
 
-.active {
+.active-topics {
   color: rgb(255, 0, 0);
 }
 

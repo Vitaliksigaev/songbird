@@ -1,12 +1,12 @@
 .header {
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .header__top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 //   border: 1px solid;
 }
 
@@ -37,7 +37,11 @@
 }
 
 .active-topics {
-  color: rgb(255, 0, 0);
+  color: white;
+    border: solid 2px white;
+    border-radius: 10px;
+    padding: 10px;
+    text-decoration: underline;
 }
 
 ul {

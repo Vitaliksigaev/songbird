@@ -60,7 +60,7 @@ const createAudio = (stage) => {
   const audio = document.createElement('audio');
   audio.setAttribute('src', birdsData[stage][1].audio);
   audio.setAttribute('id', 'audio');
-  audio.setAttribute('preload', 'auto');
+  audio.setAttribute('preload', 'none');
   audio.setAttribute('controls', 'controls');
   audio.setAttribute('loop', 'loop');
   birdQuastion.appendChild(audio);
@@ -82,6 +82,11 @@ main.appendChild(answers);
 const answer = document.createElement('div');
 answer.className = 'answer';
 answer.innerHTML = '<p>Угадай! Выбери правильный ответ и получи баллы</p>';
+// const answerImage = document.createElement('img');
+// const answerTitle = document.createElement('h4');
+// const answerSubText = document.createElement('p');
+
+// const answerText = document.createElement('p');
 main.appendChild(answer);
 
 const controls = document.createElement('div');
@@ -177,10 +182,17 @@ const disabledButton = () => {
 disabledButton();
 
 const pushAnswerAdditionalInfo = (stage) => {
-  const answer = document.querySelector('.answer');
-  answer.innerHTML = birdsData[stage][0].description;
   const answerTitle = document.querySelector('.bird__title');
   answerTitle.innerHTML = birdsData[stage][0].name;
+  const answer = document.querySelector('.answer');
+  const questionInfo = document.querySelector('.question');
+  let clone = questionInfo.cloneNode(true);
+
+  answer.innerHTML = '';
+  answer.appendChild(clone);
+  let description = document.createElement('p');
+  description.innerHTML = birdsData[stage][0].description;
+  answer.appendChild(description);
 };
 const step = 10;
 const addScore = () => {

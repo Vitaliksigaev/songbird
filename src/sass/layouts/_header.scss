@@ -10,6 +10,25 @@
 //   border: 1px solid;
 }
 
+.nav__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nav__header {
+  >* {
+    display: flex;
+    width: 250px;
+    justify-content: space-between;
+    >* a {
+      text-decoration: none;
+      color: antiquewhite;
+    }
+
+  
+  }
+}
+
 .score__box {
   display: flex;
   padding: 25px;
@@ -51,4 +70,5 @@ ul {
 li {
 //   border: 1px solid;
   list-style-type: none;
+  text-decoration: none;
 }

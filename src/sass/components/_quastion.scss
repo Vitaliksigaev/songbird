@@ -19,7 +19,22 @@
 display: flex;
 width: 45%;
 flex-direction: column;
+  &_good {
+    background-color: green;
+    color: white;
+  }
+  &_bad {
+    background-color: red;
+    color: white;
+  }
 }
+.span-good {
+  background-color: #50ff83;
+}
+.span-bad{
+  background-color: #fc6e96;
+}
+
 
 .controls {
   display: flex;

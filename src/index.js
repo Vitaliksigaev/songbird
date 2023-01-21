@@ -20,15 +20,25 @@ logo.src = '../src/assets/logo-bird.jpg';
 logo.setAttribute('alt', 'bird-logo');
 headerTop.appendChild(logo);
 
+const headerNavBox = document.createElement('div');
+headerNavBox.className = 'nav__box';
+headerTop.appendChild(headerNavBox);
+
 const title = document.createElement('h1');
 title.className = 'title';
 title.innerHTML = 'SongBird';
-headerTop.appendChild(title);
+headerNavBox.appendChild(title);
+
+const headerNav = document.createElement('nav');
+headerNav.className = 'nav__header';
+headerNav.innerHTML = '<ul><li><a href="#">Главная</a></li><li><a href="#">Играть</a></li><li><a href="#">Результаты</a></li></ul>';
+headerNavBox.appendChild(headerNav);
+
 
 const scoreBox = document.createElement('div');
 scoreBox.className = 'score__box';
 headerTop.appendChild(scoreBox);
-scoreBox.innerHTML = '<h2>Score:</h2><h2 class="score">0</h2>';
+scoreBox.innerHTML = '<h2>Score: </h2><h2 class="score"> 0 </h2>';
 
 const headerBottom = document.createElement('div');
 headerBottom.className = 'header__bottom';
@@ -98,8 +108,17 @@ wrapper.appendChild(main);
 
 const footer = document.createElement('footer');
 footer.className = 'footer';
-footer.innerHTML = '(c) Vitalik Sigaev, 2023';
 wrapper.appendChild(footer);
+
+
+const footerLogo = document.createElement('div');
+footerLogo.innerHTML = '<a href="https://rs.school/js/"><img src="../src/assets/rs_school_js.svg" alt="альтернативный текст"></a>';
+footer.appendChild(footerLogo);
+
+const footerText= document.createElement('a');
+footerText.setAttribute ('href', 'https://github.com/Vitaliksigaev');
+footerText.innerHTML = '(c) GitHub > Vitalik Sigaev, 2023';
+footer.appendChild(footerText);
 
 const changeAudio = (stage) => {
   const audio = document.querySelector('#audio');
@@ -108,7 +127,7 @@ const changeAudio = (stage) => {
 
 const changeBtnAnswers = (stage) => {
   const answers = document.querySelectorAll('.answer__option');
-  console.log(answers);
+  // console.log(answers);
   for (let i = 0; i < answers.length; i += 1) {
     answers[i].innerHTML = birdsData[stage][i].name;
   }
@@ -119,22 +138,22 @@ const addEventBtn = (stage) => {
   const answers = document.querySelectorAll('.answer__option');
   for (let i = 0; i < answers.length; i += 1) {
     const ararat = () => {
-      checkAnswer(stage, answers[i].innerHTML);
+      checkAnswer(stage, answers[i].innerHTML, answers[i], answers);
     };
     answers[i].addEventListener('click', ararat, { once: true });
   }
 };
 addEventBtn(stage);
 
-const removeLisenBtn = () => {
-  const answers = document.querySelectorAll('.answer__option');
-  for (let i = 0; i < answers.length; i += 1) {
-    const ararat = () => {
-      checkAnswer(stage, answers[i].innerHTML);
-    };
-    answers[i].removeEventListener('click', ararat);
-  }
-};
+// const removeLisenBtn = () => {
+//   const answers = document.querySelectorAll('.answer__option');
+//   for (let i = 0; i < answers.length; i += 1) {
+//     const ararat = () => {
+//       checkAnswer(stage, answers[i].innerHTML, answers );
+//     };
+//     answers[i].removeEventListener('click', ararat);
+//   }
+// };
 
 const changeImage = (stage) => {
   const image = document.querySelector('.bird__image');
@@ -191,7 +210,7 @@ const pushAnswerAdditionalInfo = (stage) => {
   answer.innerHTML = '';
   answer.appendChild(clone);
   let description = document.createElement('p');
-  description.innerHTML = birdsData[stage][0].description;
+  description.innerHTML = birdsData[stage][0].species + ' / ' + birdsData[stage][0].description;
   answer.appendChild(description);
 };
 const step = 10;
@@ -207,8 +226,50 @@ const removeScore = () => {
   }
 };
 
-const checkAnswer = (stage, answer) => {
+const addStyle = (btn, nameStyle, answerbtn, spanStyle) => {
+  // console.log(btn);
+  // console.log(nameStyle);
+  // console.log(answerbtn);
+  answerbtn.classList.add(nameStyle);
+  let span = document.createElement('span');
+  span.classList.add(spanStyle);
+  span.innerHTML = ' @';
+  answerbtn.appendChild(span);
+};
+
+const soundGoodAnswer = () => {
+  const audio = new Audio(); 
+  audio.src = './assets/song/good-answer.mp3';
+  audio.autoplay = true;
+};
+const soundBadAnswer = () => {
+  const audio = new Audio(); 
+  audio.src = './assets/song/wrong-answer.mp3';
+  audio.autoplay = true;
+};
+
+const pushInfoBird = (stage, answer) => {
+  let descriptionBird = document.createElement('p');
+  for(let i = 0; i< 6; i++) {
+    if(birdsData[stage][i].name === answer) {
+      descriptionBird.innerHTML = birdsData[stage][i].species + ' / ' + birdsData[stage][i].description;
+    }
+  }
+  const answerPage = document.querySelector('.answer');
+  answerPage.innerHTML = '';
+  answerPage.appendChild(descriptionBird);
+};
+
+const checkAnswer = (stage, answer, answerbtn, answers) => {
+  console.log(stage);
+  console.log(answer);
+  console.log(answerbtn);
+  console.log(answers);
+
+  pushInfoBird(stage, answer);
   if (answer === birdsData[stage][0].name) {
+    soundGoodAnswer();
+    addStyle(answer, 'answer_good', answerbtn, 'span-good');
     addScore();
     changeImage(stage);
     pushAnswerAdditionalInfo(stage);
@@ -220,10 +281,30 @@ const checkAnswer = (stage, answer) => {
             alert('You WIN!');
             const score = document.querySelector('.score');
             alert(score.innerHTML);
-          }, 3000);
+        }, 3000);
     }
   } else {
-    removeScore();
+    let num = 0;
+    for (let i = 0; i < 6; i++) {
+      if(answers[i].classList.contains('answer_good')){
+        num = num + 1;
+      }      
+    }
+    if(num === 0) {
+        soundBadAnswer();
+        addStyle(answer, 'answer_bad', answerbtn, 'span-bad');
+        removeScore();
+    }
+
+
+
+      // if(!btn.classList.contains('answer_good')) {
+      //   num = num + 1;
+      //   if(num>0) {
+
+      //   }
+      // }
+
   }
 };
 

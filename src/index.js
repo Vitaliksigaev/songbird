@@ -66,25 +66,40 @@ birdQuastion.className = 'bird__quastion';
 birdQuastion.innerHTML = '<h3 class="bird__title">++++++++++++++++</h3>';
 question.appendChild(birdQuastion);
 
-const createAudio = (stage) => {
+function randomInteger(min, max) {
+  let rand = min + Math.random() * (max + 1 - min);
+  console.log(Math.floor(rand));
+  return Math.floor(rand);
+}
+
+const indexStartGame = randomInteger(0,5);
+
+const createAudio = (stage, index) => {
   const audio = document.createElement('audio');
-  audio.setAttribute('src', birdsData[stage][1].audio);
+  audio.setAttribute('src', birdsData[stage][index].audio);
   audio.setAttribute('id', 'audio');
   audio.setAttribute('preload', 'none');
   audio.setAttribute('controls', 'controls');
   audio.setAttribute('loop', 'loop');
   birdQuastion.appendChild(audio);
 };
-createAudio(stage);
+createAudio(stage, indexStartGame);
+
+// const startRandomGame = (stage) => {
+//   let indexRigthAnswer = randomInteger(0, 5);
+//   audio.setAttribute('src', birdsData[stage][indexRigthAnswer].audio);
+
+
+// };
 
 main.appendChild(question);
 
 const answers = document.createElement('div');
 answers.className = 'answers';
-for (let i = 0; i < birdsData[0].length; i += 1) {
+for (let i = 0; i < birdsData[stage].length; i += 1) {
   const btn = document.createElement('button');
   btn.className = 'answer__option';
-  btn.innerHTML = birdsData[0][i].name;
+  btn.innerHTML = birdsData[stage][i].name;
   answers.appendChild(btn);
 }
 main.appendChild(answers);
@@ -95,7 +110,6 @@ answer.innerHTML = '<p>Угадай! Выбери правильный отве�
 // const answerImage = document.createElement('img');
 // const answerTitle = document.createElement('h4');
 // const answerSubText = document.createElement('p');
-
 // const answerText = document.createElement('p');
 main.appendChild(answer);
 
@@ -110,7 +124,6 @@ const footer = document.createElement('footer');
 footer.className = 'footer';
 wrapper.appendChild(footer);
 
-
 const footerLogo = document.createElement('div');
 footerLogo.innerHTML = '<a href="https://rs.school/js/"><img src="../src/assets/rs_school_js.svg" alt="альтернативный текст"></a>';
 footer.appendChild(footerLogo);
@@ -120,30 +133,29 @@ footerText.setAttribute ('href', 'https://github.com/Vitaliksigaev');
 footerText.innerHTML = '(c) GitHub > Vitalik Sigaev, 2023';
 footer.appendChild(footerText);
 
-const changeAudio = (stage) => {
+const changeAudio = (stage, index) => {
   const audio = document.querySelector('#audio');
-  audio.setAttribute('src', birdsData[stage][1].audio);
+  audio.setAttribute('src', birdsData[stage][index].audio);
 };
 
 const changeBtnAnswers = (stage) => {
   const answers = document.querySelectorAll('.answer__option');
-  // console.log(answers);
   for (let i = 0; i < answers.length; i += 1) {
     answers[i].innerHTML = birdsData[stage][i].name;
   }
 };
 changeBtnAnswers(stage);
 
-const addEventBtn = (stage) => {
+const addEventBtn = (stage, index) => {
   const answers = document.querySelectorAll('.answer__option');
   for (let i = 0; i < answers.length; i += 1) {
     const ararat = () => {
-      checkAnswer(stage, answers[i].innerHTML, answers[i], answers);
+      checkAnswer(stage, answers[i].innerHTML, answers[i], answers, index);
     };
     answers[i].addEventListener('click', ararat, { once: true });
   }
 };
-addEventBtn(stage);
+addEventBtn(stage, indexStartGame);
 
 // const removeLisenBtn = () => {
 //   const answers = document.querySelectorAll('.answer__option');
@@ -183,14 +195,16 @@ const activateButton = (stage) => {
   const btn = document.querySelector('.button');
   btn.disabled = false;
   btn.addEventListener('click', () => {
+    let index = randomInteger(0, 5);
+
     addClassActiveTopics(stage);
     createBtnAnswers(stage);
-    addEventBtn(stage);
-    changeAudio(stage);
+    addEventBtn(stage, index);
+    changeAudio(stage, index);
     defaultAnswer();
     defaultImage();
     btn.disabled = true;
-    btn.addEventListener('click', event.target);
+    // btn.addEventListener('click', event.target);
   });
 };
 
@@ -260,58 +274,50 @@ const pushInfoBird = (stage, answer) => {
   answerPage.appendChild(descriptionBird);
 };
 
-const checkAnswer = (stage, answer, answerbtn, answers) => {
+const checkAnswer = (stage, answer, answerbtn, answers, index) => {
   console.log(stage);
   console.log(answer);
   console.log(answerbtn);
   console.log(answers);
+  console.log(index);
 
   pushInfoBird(stage, answer);
-  if (answer === birdsData[stage][0].name) {
-    soundGoodAnswer();
-    addStyle(answer, 'answer_good', answerbtn, 'span-good');
-    addScore();
-    changeImage(stage);
-    pushAnswerAdditionalInfo(stage);
-    if (stage < 5) {
-      stage += 1;
-      activateButton(stage);
+    if (answer === birdsData[stage][index].name) {
+      soundGoodAnswer();
+      addStyle(answer, 'answer_good', answerbtn, 'span-good');
+      addScore();
+      changeImage(stage);
+      pushAnswerAdditionalInfo(stage);
+      if (stage < 5) {
+        stage += 1;
+        activateButton(stage);
+      } else {
+          setTimeout(() => {
+              alert('You WIN!');
+              const score = document.querySelector('.score');
+              alert(score.innerHTML);
+          }, 3000);
+      }
     } else {
-        setTimeout(() => {
-            alert('You WIN!');
-            const score = document.querySelector('.score');
-            alert(score.innerHTML);
-        }, 3000);
-    }
-  } else {
-    let num = 0;
-    for (let i = 0; i < 6; i++) {
-      if(answers[i].classList.contains('answer_good')){
-        num = num + 1;
-      }      
-    }
-    if(num === 0) {
-        soundBadAnswer();
-        addStyle(answer, 'answer_bad', answerbtn, 'span-bad');
-        removeScore();
+      let num = 0;
+      for (let i = 0; i < 6; i++) {
+        if(answers[i].classList.contains('answer_good')){
+          num = num + 1;
+        }      
+      }
+      if(num === 0) {
+          soundBadAnswer();
+          addStyle(answer, 'answer_bad', answerbtn, 'span-bad');
+          removeScore();
+      }
     }
 
-
-
-      // if(!btn.classList.contains('answer_good')) {
-      //   num = num + 1;
-      //   if(num>0) {
-
-      //   }
-      // }
-
-  }
 };
 
 const createBtnAnswers = (stage) => {
   const answers = document.querySelector('.answers');
   answers.innerHTML = '';
-  for (let i = 0; i < birdsData[0].length; i++) {
+  for (let i = 0; i < birdsData[stage].length; i++) {
     const btn = document.createElement('button');
     btn.className = 'answer__option';
     btn.innerHTML = birdsData[stage][i].name;

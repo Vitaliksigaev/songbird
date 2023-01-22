@@ -4,11 +4,17 @@
 
 @import 'components/quastion';
 @import 'components/answer';
+@import 'components/image';
+
 
 @import 'base/buttons';
 
 h1 {
   color: rgb(255, 255, 255);
+}
+
+a {
+  text-decoration: none;
 }
 
 // .wrapper {

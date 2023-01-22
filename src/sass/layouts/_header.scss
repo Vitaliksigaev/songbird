@@ -10,6 +10,25 @@
 //   border: 1px solid;
 }
 
+.nav__box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.nav__header {
+  >* {
+    display: flex;
+    width: 250px;
+    justify-content: space-between;
+    >* a {
+      text-decoration: none;
+      color: antiquewhite;
+    }
+
+  
+  }
+}
+
 .score__box {
   display: flex;
   padding: 25px;
@@ -23,12 +42,7 @@
   border: solid 5px white;
 }
 
-.bird__image {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    border: solid 5px white;
-}
+
 
 .topics {
   display: flex;
@@ -51,4 +65,5 @@ ul {
 li {
 //   border: 1px solid;
   list-style-type: none;
+  text-decoration: none;
 }

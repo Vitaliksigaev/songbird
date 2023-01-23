@@ -18,14 +18,9 @@ const createPageResults = () => {
   mainWrapper.innerHTML = localStorage.getItem('results');
 }
 
-const main = document.createElement('main');
-main.className = 'wrapper__main';
-
-
-
-
-
-
+const navBtnMain = document.createElement('button');
+const navBtnPlay = document.createElement('button');
+const navBtnResults = document.createElement('button');
 
 const createHeader = function () {
   const header = document.createElement('header');
@@ -52,13 +47,26 @@ const createHeader = function () {
   
   const headerNav = document.createElement('nav');
   headerNav.className = 'nav__header';
-  headerNav.innerHTML = '<ul><li><a id="link__main" href="/src/main.html">Главная</a></li><li><a id="link__play" href="/src/index.html">Играть</a></li><li><a id="link__results" href="/src/results.html">Результаты</a></li></ul>';
+
+  navBtnMain.innerHTML = 'Главная';
+  navBtnPlay.innerHTML = 'Играть';
+  navBtnResults.innerHTML = 'Результаты';
+
+  headerNav.appendChild(navBtnMain);
+  headerNav.appendChild(navBtnPlay);
+  headerNav.appendChild(navBtnResults);
+
+
+  // const navUl = document.createElement('ul');
+  // headerNav.appendChild(navUl);
+  // headerNav.innerHTML = '<ul><li><a id="link__main" href="/src/main.html">Главная</a></li><li><a id="link__play" href="/src/index.html">Играть</a></li><li><a id="link__results" href="/src/results.html">Результаты</a></li></ul>';
+  
   headerNavBox.appendChild(headerNav);
   
   const scoreBox = document.createElement('div');
   scoreBox.className = 'score__box';
   headerTop.appendChild(scoreBox);
-  scoreBox.innerHTML = '<h2>Score: </h2><h2 class="score"> 0 </h2>';
+  scoreBox.innerHTML = '<h2>Score : </h2><h2 class="score"> 0 </h2>';
   
   const headerBottom = document.createElement('div');
   headerBottom.className = 'header__bottom';
@@ -71,41 +79,30 @@ const createHeader = function () {
 }
 createHeader();
 
-const linkMain = document.getElementById('link__main');
-linkMain.addEventListener('click', createMainStart);
-
-const linkPlay = document.getElementById('link__play');
-linkPlay.addEventListener('click', createMainPlay);
-
-const linkResults = document.getElementById('link__results');
-linkResults.addEventListener('click', createMainResults);
-
-
-const createMainStart = () => {
-  main.innerHTML = '<button id="star-game">START</button>';
-};
-createMainStart();
+const main = document.createElement('main');
+main.className = 'wrapper__main';
+wrapper.appendChild(main);
 
 
 
-function randomInteger(min, max) {
-  let rand = min + Math.random() * (max + 1 - min);
-  console.log(Math.floor(rand));
-  return Math.floor(rand);
-}
-const indexStartGame = randomInteger(0,5);
-const createAudio = (stage, index) => {
-  const audio = document.createElement('audio');
-  audio.setAttribute('src', birdsData[stage][index].audio);
-  audio.setAttribute('id', 'audio');
-  audio.setAttribute('preload', 'none');
-  audio.setAttribute('controls', 'controls');
-  audio.setAttribute('loop', 'loop');
-  return audio
-};
+// const linkMain = document.getElementById('link__main');
+// linkMain.addEventListener('click', createMainStart);
+
+// const linkPlay = document.getElementById('link__play');
+// linkPlay.addEventListener('click', createMainPlay);
+
+// const linkResults = document.getElementById('link__results');
+// linkResults.addEventListener('click', createMainResults);
+const createMainResults = () => {};
+
 
 const createMainPlay = () => {
-  // const main = document.createElement('main');
+  const headerNav = document.querySelector('.nav__header');
+  const headerBottom = document.querySelector('.header__bottom');
+  headerNav.style.display = 'flex';
+  headerBottom.style.display = 'block';
+  const main = document.querySelector('main');
+  main.innerHTML = '';
   // main.className = 'wrapper__main';
   
   const question = document.createElement('div');
@@ -158,25 +155,61 @@ const createMainPlay = () => {
   controls.innerHTML = '<button class="button" disabled="">NEXT  LEVEL</button>';
   main.appendChild(controls);
   
-  wrapper.appendChild(main);
+  // wrapper.appendChild(main);
+  changeBtnAnswers(stage);
+  addEventBtn(stage, indexStartGame);
+  disabledButton();
 };
-createMainPlay();
 
-const createFooter = () => {
-  const footer = document.createElement('footer');
-  footer.className = 'footer';
-  wrapper.appendChild(footer);
+const createMainStart = () => {
+  // const main = document.createElement('main');
+  // main.className = 'wrapper__main';
+
+  main.innerHTML = '';
+  navBtnMain.addEventListener('click', createMainStart);
+  navBtnPlay.addEventListener('click', createMainPlay);
+  navBtnResults.addEventListener('click', createMainResults);
+  // main.innerHTML = '<button class="btn__main btn-star">Играть</button>';
+  //<button class="btn__main btn-game">Главная</button><button class="btn__main btn-results">Результаты</button>
+  const headerNav = document.querySelector('.nav__header');
+  const headerBottom = document.querySelector('.header__bottom');
+  headerNav.style.display = 'none';
+  headerBottom.style.display = 'none';
+
+  const btn1 = document.createElement('button');
+  btn1.className = 'btn__main btn-start';
+  btn1.innerHTML = 'Lets PLAY';
+  btn1.addEventListener('click', createMainPlay);
+  main.appendChild(btn1);
+  // const btnMain = document.querySelector('btn-game');
+  // btnMain.addEventListener('click', createMainStart);
   
-  const footerLogo = document.createElement('div');
-  footerLogo.innerHTML = '<a href="https://rs.school/js/"><img src="../src/assets/rs_school_js.svg" alt="альтернативный текст"></a>';
-  footer.appendChild(footerLogo);
-  
-  const footerText= document.createElement('a');
-  footerText.setAttribute ('href', 'https://github.com/Vitaliksigaev');
-  footerText.innerHTML = '(c) GitHub > Vitalik Sigaev, 2023';
-  footer.appendChild(footerText);
+  // const btnPlay = document.querySelector('.btn-star');
+  // btnPlay.addEventListener('click', createMainPlay);  
+  // const btnResults = document.querySelector('btn-results');
+  // btnResults.addEventListener('click', createMainResults);
 };
-createFooter();
+createMainStart();
+
+
+
+function randomInteger(min, max) {
+  let rand = min + Math.random() * (max + 1 - min);
+  console.log(Math.floor(rand));
+  return Math.floor(rand);
+}
+const indexStartGame = randomInteger(0,5);
+const createAudio = (stage, index) => {
+  const audio = document.createElement('audio');
+  audio.setAttribute('src', birdsData[stage][index].audio);
+  audio.setAttribute('id', 'audio');
+  audio.setAttribute('preload', 'none');
+  audio.setAttribute('controls', 'controls');
+  audio.setAttribute('loop', 'loop');
+  return audio
+};
+
+
 
 const changeAudio = (stage, index) => {
   const audio = document.querySelector('#audio');
@@ -189,7 +222,7 @@ const changeBtnAnswers = (stage) => {
     answers[i].innerHTML = birdsData[stage][i].name;
   }
 };
-changeBtnAnswers(stage);
+// changeBtnAnswers(stage);
 
 let maxScore = 5;
 const addEventBtn = (stage, index) => {
@@ -201,7 +234,7 @@ const addEventBtn = (stage, index) => {
     answers[i].addEventListener('click', ararat, { once: true });
   }
 };
-addEventBtn(stage, indexStartGame);
+
 
 
 const changeMainImage = (stage, index) => {
@@ -254,7 +287,7 @@ const disabledButton = () => {
   const btn = document.querySelector('.button');
   btn.disabled = true;
 };
-disabledButton();
+
 
 ///////////////////////==
 const pushAnswerAdditionalInfo = (stage, index, answerClick, answers) => {
@@ -397,3 +430,29 @@ const createBtnAnswers = (stage) => {
     answers.appendChild(btn);
   }
 };
+
+
+
+
+
+
+
+
+// createMainPlay();
+
+const createFooter = () => {
+  const footer = document.createElement('footer');
+  footer.className = 'footer';
+  wrapper.appendChild(footer);
+  
+  const footerLogo = document.createElement('div');
+  footerLogo.innerHTML = '<a href="https://rs.school/js/"><img src="../src/assets/rs_school_js.svg" alt="альтернативный текст"></a>';
+  footer.appendChild(footerLogo);
+  
+  const footerText= document.createElement('a');
+  footerText.setAttribute ('href', 'https://github.com/Vitaliksigaev');
+  footerText.innerHTML = '(c) GitHub > Vitalik Sigaev, 2023';
+  footer.appendChild(footerText);
+};
+createFooter();
+

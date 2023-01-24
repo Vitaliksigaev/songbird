@@ -8,15 +8,19 @@ wrapper.className = 'wrapper';
 body.appendChild(wrapper);
 
 const saveResults = (value) => {
-  localStorage.setItem('results', value);
+  const date = new Date();
+  localStorage.setItem(date, value);
 }
 
+const clearMain = () => {
+  const main = document.querySelector('main');
+  main.innerHTML = '';
+};
 
-
-const createPageResults = () => {
-  const mainWrapper = document.querySelector('.wrapper__main');
-  mainWrapper.innerHTML = localStorage.getItem('results');
-}
+// const createPageResults = () => {
+//   const mainWrapper = document.querySelector('.wrapper__main');
+//   mainWrapper.innerHTML = localStorage.getItem('results');
+// }
 
 const navBtnMain = document.createElement('button');
 const navBtnPlay = document.createElement('button');
@@ -83,27 +87,39 @@ const main = document.createElement('main');
 main.className = 'wrapper__main';
 wrapper.appendChild(main);
 
+const createMainResults = () => {
+  const headerBottom = document.querySelector('.header__bottom');
+  headerBottom.style.display = 'none';
 
+  clearMain();
 
-// const linkMain = document.getElementById('link__main');
-// linkMain.addEventListener('click', createMainStart);
+  // main.innerHTML = localStorage.getItem('results');
 
-// const linkPlay = document.getElementById('link__play');
-// linkPlay.addEventListener('click', createMainPlay);
+  for(let i=0; i<localStorage.length; i++) {
+    let key = localStorage.key(i);
+    const localStorageValue = document.createElement('p');
+    localStorageValue.className = 'localStorage__value';
+    localStorageValue.innerHTML = `${key}: ${localStorage.getItem(key)}`;
+    main.appendChild(localStorageValue);
+  }
+  main.style.alignItems = 'normal';
+  main.style.flexDirection = 'column';
+//flex-wrap: wrap
 
-// const linkResults = document.getElementById('link__results');
-// linkResults.addEventListener('click', createMainResults);
-const createMainResults = () => {};
-
+};
 
 const createMainPlay = () => {
   const headerNav = document.querySelector('.nav__header');
   const headerBottom = document.querySelector('.header__bottom');
   headerNav.style.display = 'flex';
   headerBottom.style.display = 'block';
-  const main = document.querySelector('main');
-  main.innerHTML = '';
+  const score = document.querySelector('.score');
+  score.innerHTML = 0;
+
+  clearMain();
   // main.className = 'wrapper__main';
+  main.style.alignItems = 'center';
+  main.style.flexDirection = 'column';
   
   const question = document.createElement('div');
   question.className = 'question';
@@ -130,6 +146,8 @@ const createMainPlay = () => {
   // };
   
   main.appendChild(question);
+  main.style.alignItems = 'normal';
+  main.style.flexDirection = 'row';
   
   const answers = document.createElement('div');
   answers.className = 'answers';
@@ -172,8 +190,9 @@ const createMainStart = () => {
   // main.innerHTML = '<button class="btn__main btn-star">Играть</button>';
   //<button class="btn__main btn-game">Главная</button><button class="btn__main btn-results">Результаты</button>
   const headerNav = document.querySelector('.nav__header');
-  const headerBottom = document.querySelector('.header__bottom');
   headerNav.style.display = 'none';
+
+  const headerBottom = document.querySelector('.header__bottom');
   headerBottom.style.display = 'none';
 
   const btn1 = document.createElement('button');
@@ -192,7 +211,6 @@ const createMainStart = () => {
 createMainStart();
 
 
-
 function randomInteger(min, max) {
   let rand = min + Math.random() * (max + 1 - min);
   console.log(Math.floor(rand));
@@ -209,8 +227,6 @@ const createAudio = (stage, index) => {
   return audio
 };
 
-
-
 const changeAudio = (stage, index) => {
   const audio = document.querySelector('#audio');
   audio.setAttribute('src', birdsData[stage][index].audio);
@@ -222,7 +238,6 @@ const changeBtnAnswers = (stage) => {
     answers[i].innerHTML = birdsData[stage][i].name;
   }
 };
-// changeBtnAnswers(stage);
 
 let maxScore = 5;
 const addEventBtn = (stage, index) => {
@@ -234,8 +249,6 @@ const addEventBtn = (stage, index) => {
     answers[i].addEventListener('click', ararat, { once: true });
   }
 };
-
-
 
 const changeMainImage = (stage, index) => {
   const image = document.querySelector('.bird__image');
@@ -287,7 +300,6 @@ const disabledButton = () => {
   const btn = document.querySelector('.button');
   btn.disabled = true;
 };
-
 
 ///////////////////////==
 const pushAnswerAdditionalInfo = (stage, index, answerClick, answers) => {
@@ -400,6 +412,7 @@ const checkAnswer = (stage, answer, answerbtn, answers, index) => {
               const score = document.querySelector('.score');
               alert(score.innerHTML);
               saveResults (score.innerHTML);
+              createMainResults();
           }, 3000);
       }
     } else {

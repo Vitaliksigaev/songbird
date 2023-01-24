@@ -62,7 +62,14 @@
 
 .score__box {
   display: flex;
-  padding: 25px;
+  flex-direction: column;
+  align-items: center;
+  // padding: 25px;
+  justify-items: center;
+}
+.score {
+  font-size: 2.5rem;
+  margin: 0;
 }
 
 .logo {
